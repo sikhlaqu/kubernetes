@@ -20,6 +20,7 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/kubernetes/pkg/util/mount"
 	utilstrings "k8s.io/kubernetes/pkg/util/strings"
+        "k8s.io/kubernetes/pkg/volume"
 )
 
 type flexVolume struct {
@@ -42,6 +43,7 @@ type flexVolume struct {
 	volName string
 	// the underlying plugin
 	plugin *flexVolumePlugin
+        volume.MetricsProvider
 }
 
 // volume.Volume interface

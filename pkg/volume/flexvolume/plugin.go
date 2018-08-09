@@ -186,6 +186,7 @@ func (plugin *flexVolumePlugin) newMounterInternal(spec *volume.Spec, pod *api.P
 			podNamespace:          pod.Namespace,
 			podServiceAccountName: pod.Spec.ServiceAccountName,
 			volName:               spec.Name(),
+                        MetricsProvider: volume.NewMetricsStatFS(plugin.host.GetPodVolumeDir(pod.UID, utilstrings.EscapeQualifiedNameForDisk(sourceDriver), spec.Name())),
 		},
 		runner:   runner,
 		spec:     spec,
@@ -208,6 +209,7 @@ func (plugin *flexVolumePlugin) newUnmounterInternal(volName string, podUID type
 			plugin:     plugin,
 			podUID:     podUID,
 			volName:    volName,
+                        MetricsProvider: volume.NewMetricsStatFS(plugin.host.GetPodVolumeDir(podUID, utilstrings.EscapeQualifiedNameForDisk(plugin.driverName), volName)),
 		},
 		runner: runner,
 	}, nil
